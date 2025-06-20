@@ -92,7 +92,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
             type: BottomNavigationBarType.fixed,
             currentIndex: navigationController.selectedIndex.value,
             onTap: navigationController.changePage,
-            selectedItemColor: Colors.deepPurple,
+            selectedItemColor: Theme.of(context).primaryColor,
             unselectedItemColor: Colors.grey,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

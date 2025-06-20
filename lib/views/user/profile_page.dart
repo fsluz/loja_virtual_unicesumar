@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import './../../controllers/controllers.dart';
+import './../../widgets/widgets.dart';
 import './../views.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -45,16 +46,15 @@ class ProfilePage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
                       ),
                     ),
                     const SizedBox(height: 12),
-                    const Text(
+                    Text(
                       'Faça login para acessar seu perfil, favoritos e pedidos.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.black54,
+                        color: theme.textTheme.bodyMedium?.color,
                       ),
                     ),
                     const SizedBox(height: 36),
@@ -105,14 +105,14 @@ class ProfilePage extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: theme.primaryColor, width: 3),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.account_circle,
                     size: 90,
-                    color: Colors.deepPurple,
+                    color: theme.primaryColor,
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Informações da Conta',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -128,7 +128,7 @@ class ProfilePage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.person, color: Colors.deepPurple),
+                            Icon(Icons.person, color: theme.primaryColor),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Text(
@@ -141,7 +141,7 @@ class ProfilePage extends StatelessWidget {
                         const Divider(height: 24),
                         Row(
                           children: [
-                            const Icon(Icons.email, color: Colors.deepPurple),
+                            Icon(Icons.email, color: theme.primaryColor),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Text(
@@ -155,13 +155,16 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 24),
+                // Seletor de Tema
+                const ThemeSelector(),
                 const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: theme.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

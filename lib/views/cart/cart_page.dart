@@ -61,19 +61,18 @@ class CartPage extends StatelessWidget {
                     color: theme.primaryColor.withOpacity(0.7),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     'Seu carrinho está vazio',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'Adicione produtos ao carrinho para continuar.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                    style: TextStyle(fontSize: 16, color: theme.textTheme.bodyMedium?.color),
                   ),
                   const SizedBox(height: 24),
                   PrimaryButton(
@@ -144,10 +143,19 @@ class CartPage extends StatelessWidget {
                         ),
                         title: Text(
                           item.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold, 
+                            fontSize: 12,
+                            color: theme.textTheme.bodyLarge?.color,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        subtitle: Text(currencyFormat.format(item.price)),
+                        subtitle: Text(
+                          currencyFormat.format(item.price),
+                          style: TextStyle(
+                            color: theme.textTheme.bodyMedium?.color,
+                          ),
+                        ),
                         trailing: QuantityWidget(
                           suffixText: 'Un',
                           value: item.quantity,
@@ -180,7 +188,11 @@ class CartPage extends StatelessWidget {
                   ),
                   Text(
                     'Total: ${currencyFormat.format(cartController.total)}',
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 14, 
+                      fontWeight: FontWeight.bold,
+                      color: theme.textTheme.bodyLarge?.color,
+                    ),
                   ),
                 ],
               ),

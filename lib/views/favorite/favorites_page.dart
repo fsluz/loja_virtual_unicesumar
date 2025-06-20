@@ -35,22 +35,21 @@ class FavoritesPage extends StatelessWidget {
                     color: theme.primaryColor.withOpacity(0.7),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     'Você não está logado',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Faça login para visualizar seus produtos favoritos.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.black54,
+                      color: theme.textTheme.bodyMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -97,22 +96,21 @@ class FavoritesPage extends StatelessWidget {
                     color: theme.primaryColor.withOpacity(0.7),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     'Nenhum favorito encontrado',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Adicione produtos aos seus favoritos\npara visualizá-los aqui.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.black45,
+                      color: theme.textTheme.bodyMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -186,7 +184,7 @@ class FavoritesPage extends StatelessWidget {
                                   style: GoogleFonts.montserrat(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.black87,
+                                    color: theme.textTheme.bodyLarge?.color,
                                   ),
                                 ),
                                 const SizedBox(height: 6),

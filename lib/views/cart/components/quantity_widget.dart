@@ -16,10 +16,12 @@ class QuantityWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.cardTheme.color,
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
@@ -46,15 +48,16 @@ class QuantityWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Text(
               '$value$suffixText',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
+                color: theme.textTheme.bodyLarge?.color,
               ),
             ),
           ),
           _QuantityButton(
             icon: Icons.add,
-            color: Colors.deepPurple,
+            color: theme.primaryColor,
             onPressed: () {
               int resultCount = value + 1;
 

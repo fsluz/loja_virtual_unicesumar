@@ -13,7 +13,7 @@ class CategoryTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
         decoration: BoxDecoration(
-          color: Colors.deepPurple,
+          color: Colors.blue,
           borderRadius: BorderRadius.circular(24),
           boxShadow: const [
             BoxShadow(

@@ -6,6 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import './widgets/widgets.dart';
 import './views/views.dart';
 import 'bindings/initial_binding.dart';
+import 'controllers/theme_controller.dart';
 
 Future<void> main() async {
   // Registrar os services globais
@@ -26,70 +27,198 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Loja de Produtos',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        primaryColor: Colors.deepPurple,
-        scaffoldBackgroundColor: Colors.grey[100],
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(255, 152, 104, 235),
-          foregroundColor: Colors.white,
-          elevation: 4,
-          centerTitle: true,
-          titleTextStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Colors.white,
-          elevation: 6,
-          shape: StadiumBorder(),
-        ),
-        cardTheme: CardThemeData(
-          color: Colors.white,
-          elevation: 6,
-          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
-          bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
-          bodySmall: TextStyle(fontSize: 12, color: Colors.black54),
-          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
-        ),
-        chipTheme: ChipThemeData(
-          backgroundColor: Colors.deepPurple,
-          selectedColor: Colors.orange,
-          secondarySelectedColor: Colors.orange,
-          labelStyle: const TextStyle(color: Colors.white),
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
-
-      // 👉 TIRA ISSO:
-      // home: MainNavigationPage(),
-
+      theme: _buildLightTheme(),
+      darkTheme: _buildDarkTheme(),
+      themeMode: ThemeMode.system, // Será controlado pelo ThemeController
+      initialBinding: InitialBinding(),
+      onInit: () {
+        // Aplica o tema salvo após a inicialização
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final themeController = Get.find<ThemeController>();
+          Get.changeThemeMode(themeController.themeMode);
+        });
+      },
       initialRoute: '/',
       getPages: [
         GetPage(
           name: '/',
           page: () => const MainNavigationPage(),
-          binding: InitialBinding(),
         ),
         GetPage(name: '/cart', page: () => CartPage()),
         GetPage(name: '/category/:category', page: () => CategoryPage()),
         GetPage(name: '/signup', page: () => const SignUpPage()),
         GetPage(name: '/login', page: () => const LoginPage()),
       ],
+    );
+  }
+
+  ThemeData _buildLightTheme() {
+    return ThemeData(
+      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        brightness: Brightness.light,
+      ),
+      useMaterial3: true,
+      primaryColor: Colors.blue,
+      scaffoldBackgroundColor: Colors.grey[50],
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        elevation: 4,
+        centerTitle: true,
+        titleTextStyle: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        elevation: 6,
+        shape: StadiumBorder(),
+      ),
+      cardTheme: CardThemeData(
+        color: Colors.white,
+        elevation: 6,
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
+        bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
+        bodySmall: TextStyle(fontSize: 12, color: Colors.black54),
+        titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: Colors.blue,
+        selectedColor: Colors.orange,
+        secondarySelectedColor: Colors.orange,
+        labelStyle: const TextStyle(color: Colors.white),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.blue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.blue, width: 2),
+        ),
+        labelStyle: const TextStyle(color: Colors.black87),
+      ),
+    );
+  }
+
+  ThemeData _buildDarkTheme() {
+    return ThemeData(
+      brightness: Brightness.dark,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        brightness: Brightness.dark,
+      ),
+      useMaterial3: true,
+      primaryColor: Colors.blue,
+      scaffoldBackgroundColor: const Color(0xFF121212),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        elevation: 4,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        elevation: 6,
+        shape: StadiumBorder(),
+      ),
+      cardTheme: CardThemeData(
+        color: const Color(0xFF1E1E1E),
+        elevation: 6,
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
+        bodyMedium: TextStyle(fontSize: 14, color: Colors.white),
+        bodySmall: TextStyle(fontSize: 12, color: Colors.white),
+        titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+        titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+        labelLarge: TextStyle(fontSize: 16, color: Colors.white),
+        labelMedium: TextStyle(fontSize: 14, color: Colors.white),
+        labelSmall: TextStyle(fontSize: 12, color: Colors.white),
+        headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+        headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+        headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: Colors.blue,
+        selectedColor: Colors.orange,
+        secondarySelectedColor: Colors.orange,
+        labelStyle: const TextStyle(color: Colors.white),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.blue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.blue, width: 2),
+        ),
+        labelStyle: const TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white70),
+        fillColor: const Color(0xFF1E1E1E),
+        filled: true,
+      ),
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
+      listTileTheme: const ListTileThemeData(
+        textColor: Colors.white,
+        iconColor: Colors.white,
+      ),
     );
   }
 }

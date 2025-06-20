@@ -170,7 +170,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
                 margin: const EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _currentPage == index ? Colors.deepPurple : Colors.grey[300],
+                  color: _currentPage == index ? Theme.of(context).primaryColor : Colors.grey[300],
                 ),
               ),
             ),

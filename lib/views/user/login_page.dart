@@ -47,6 +47,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -68,22 +70,22 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 40),
 
               // Branding
-              const Icon(Icons.shopping_bag, size: 80, color: Colors.deepPurple),
+              Icon(Icons.shopping_bag, size: 80, color: theme.primaryColor),
               const SizedBox(height: 16),
-              const Text(
-                'Minha Loja Online',
+              Text(
+                'Bem-vindo de volta!',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: theme.primaryColor,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Acesse sua conta para continuar',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black54,
+                  color: theme.textTheme.bodyMedium?.color,
                 ),
               ),
 
@@ -133,7 +135,12 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Não tem uma conta? '),
+                  Text(
+                    'Não tem uma conta? ',
+                    style: TextStyle(
+                      color: theme.textTheme.bodyMedium?.color,
+                    ),
+                  ),
                   TextButton(
                     onPressed: () {
                       Get.toNamed('/signup');

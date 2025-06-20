@@ -28,6 +28,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes do Produto'),
@@ -46,7 +47,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     'Acesso negado',
                     'Faça login para favoritar produtos.',
                     colorText: Colors.white,
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: theme.primaryColor,
                     snackPosition: SnackPosition.TOP,
                     margin: const EdgeInsets.all(16),
                     borderRadius: 12,
@@ -102,7 +103,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     /// Nome
                     Text(
                       widget.product.title,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      style: theme.textTheme.titleLarge?.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -117,8 +118,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         /// Preço
                         Text(
                           currencyFormat.format(widget.product.price * quantidade),
-                          style: const TextStyle(
-                            color: Colors.deepPurple,
+                          style: TextStyle(
+                            color: theme.primaryColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -128,7 +129,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         Row(
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
+                              icon: Icon(
+                                Icons.remove_circle_outline,
+                                color: theme.iconTheme.color,
+                              ),
                               onPressed: () {
                                 setState(() {
                                   if (quantidade > 1) {
@@ -139,13 +143,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ),
                             Text(
                               quantidade.toString(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
+                                color: theme.textTheme.bodyLarge?.color,
                               ),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
+                              icon: Icon(
+                                Icons.add_circle_outline,
+                                color: theme.iconTheme.color,
+                              ),
                               onPressed: () {
                                 setState(() {
                                   quantidade++;
@@ -160,19 +168,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     const SizedBox(height: 16),
 
                     /// Descrição
-                    const Text(
+                    Text(
                       'Descrição:',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
+                        color: theme.textTheme.bodyLarge?.color,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       widget.product.description,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: Colors.black87,
+                        color: theme.textTheme.bodyMedium?.color,
                       ),
                     ),
                   ],
@@ -192,7 +201,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             height: 50,
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: theme.primaryColor,
                 foregroundColor: Colors.white,
                 textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 shape: RoundedRectangleBorder(

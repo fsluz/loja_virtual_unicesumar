@@ -19,7 +19,7 @@ class LoadingButton extends StatelessWidget {
     this.icon,
     this.width = double.infinity,
     this.height = 50,
-    this.backgroundColor = Colors.deepPurple,
+    this.backgroundColor = Colors.blue,
   });
 
   @override

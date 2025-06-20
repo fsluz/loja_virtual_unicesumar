@@ -10,7 +10,7 @@ class ChipInfoWidget extends StatelessWidget {
     return Chip(
       avatar: Icon(icon, color: Colors.white),
       label: Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Colors.blue,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
     );
   }

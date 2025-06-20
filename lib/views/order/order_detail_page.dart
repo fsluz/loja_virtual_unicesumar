@@ -55,7 +55,7 @@ class OrderDetailPage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     'Data do pedido: ${dateTimeFormat.format(order.date)}',
-                    style: const TextStyle(fontSize: 14, color: Colors.black54),
+                    style: TextStyle(fontSize: 14, color: theme.textTheme.bodySmall?.color),
                   ),
                 ],
               ),
@@ -64,7 +64,7 @@ class OrderDetailPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Lista de produtos
-            const Text(
+            Text(
               'Itens do pedido',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -105,7 +105,7 @@ class OrderDetailPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Total do pedido:',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),

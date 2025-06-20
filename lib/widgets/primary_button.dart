@@ -17,7 +17,7 @@ class PrimaryButton extends StatelessWidget {
     this.icon,
     this.width = 250,
     this.height = 45,
-    this.color = Colors.deepPurple,
+    this.color = Colors.blue,
   });
 
   @override

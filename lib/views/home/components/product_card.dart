@@ -31,6 +31,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NumberFormat currencyFormat = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+    final theme = Theme.of(context);
 
     return Card(
       elevation: 3,
@@ -77,7 +78,7 @@ class ProductCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.grey[900],
+              color: theme.brightness == Brightness.dark ? Colors.grey[800] : Colors.grey[900],
               borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
             ),
             child: Column(
@@ -114,7 +115,7 @@ class ProductCard extends StatelessWidget {
                                 'Acesso negado',
                                 'Faça login para favoritar produtos.',
                                 colorText: Colors.white,
-                                backgroundColor: Theme.of(context).primaryColor,
+                                backgroundColor: theme.primaryColor,
                                 snackPosition: SnackPosition.TOP,
                                 margin: const EdgeInsets.all(16),
                                 borderRadius: 12,

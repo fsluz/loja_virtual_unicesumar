@@ -84,6 +84,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criar Conta'),
@@ -105,22 +107,22 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 15),
 
               // Branding
-              const Icon(Icons.shopping_bag, size: 80, color: Colors.deepPurple),
+              Icon(Icons.shopping_bag, size: 80, color: theme.primaryColor),
               const SizedBox(height: 16),
-              const Text(
-                'Minha Loja Online',
+              Text(
+                'Criar Conta',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: theme.primaryColor,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Crie sua conta para começar',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black54,
+                  color: theme.textTheme.bodyMedium?.color,
                 ),
               ),
 
@@ -178,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       : const Text('Cadastrar',
                           style: TextStyle(fontSize: 16, color: Colors.white)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
+                    backgroundColor: theme.primaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -193,7 +195,12 @@ class _SignUpPageState extends State<SignUpPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Já tem uma conta? '),
+                  Text(
+                    'Já tem uma conta? ',
+                    style: TextStyle(
+                      color: theme.textTheme.bodyMedium?.color,
+                    ),
+                  ),
                   TextButton(
                     onPressed: () {
                       Get.toNamed('/login');

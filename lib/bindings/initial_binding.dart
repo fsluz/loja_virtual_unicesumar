@@ -56,6 +56,7 @@ class InitialBinding extends Bindings {
 
     // Controllers globais
     Get.put(MainNavigationController());
+    Get.put(ThemeController());
 
     Get.put(HomeController(
       bannerRepository: bannerRepository,
