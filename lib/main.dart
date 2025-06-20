@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           elevation: 6,
           shape: StadiumBorder(),
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 6,
           margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

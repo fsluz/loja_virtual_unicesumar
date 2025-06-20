@@ -38,7 +38,6 @@ dependencies:
   flutter_masked_text3: ^0.9.4
   shimmer: ^3.0.0
   cached_network_image: ^3.4.1
-  carousel_slider: ^4.2.1
   google_fonts: ^6.1.0
   get_storage: ^2.1.1
   add_to_cart_animation: ^2.0.2
