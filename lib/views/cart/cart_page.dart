@@ -244,7 +244,7 @@ class CartPage extends StatelessWidget {
                           }
 
                           cartController.carregandoFinalizar.value = true;
-                          await cartController.finalizarPedido();
+                          cartController.finalizarPedido();
                           cartController.carregandoFinalizar.value = false;
                         },
                       ))),

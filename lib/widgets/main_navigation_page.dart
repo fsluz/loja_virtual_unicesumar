@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import './../controllers/controllers.dart';
 import './../views/views.dart';
+import 'notification_icon.dart';
 
 class MainNavigationPage extends StatefulWidget {
   const MainNavigationPage({super.key});
@@ -75,9 +76,10 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                       ? 'Meus Favoritos'
                       : 'Meu Perfil')),
           actions: [
+            const NotificationIcon(),
             GestureDetector(
               onTap: () {
-                Get.toNamed('/cart');
+                Get.toNamed("/cart");
               },
               child: AddToCartIcon(
                 key: cartKey,
@@ -95,7 +97,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
             navigationController.totalPages = _pages.length;
             return _pages[navigationController.selectedIndex.value];
           },
-        ), // << CORRETO
+        ),
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

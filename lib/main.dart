@@ -7,6 +7,18 @@ import './widgets/widgets.dart';
 import './views/views.dart';
 import 'bindings/initial_binding.dart';
 import 'controllers/theme_controller.dart';
+import 'package:loja_virtual_unicesumar/views/home/product_detail_page.dart';
+import 'package:loja_virtual_unicesumar/views/order/order_detail_page.dart';
+import 'package:loja_virtual_unicesumar/views/order/orders_page.dart';
+import 'package:loja_virtual_unicesumar/views/recommendations/recommendations_page.dart';
+import 'package:loja_virtual_unicesumar/views/user/edit_profile_page.dart';
+import 'package:loja_virtual_unicesumar/views/user/login_page.dart';
+import 'package:loja_virtual_unicesumar/views/user/profile_page.dart';
+import 'package:loja_virtual_unicesumar/views/user/sign_up_page.dart';
+import 'package:loja_virtual_unicesumar/widgets/main_navigation_page.dart';
+
+import 'models/notification_model.dart';
+import 'views/notification/notifications_page.dart';
 
 Future<void> main() async {
   // Registrar os services globais
@@ -40,15 +52,24 @@ class MyApp extends StatelessWidget {
       },
       initialRoute: '/',
       getPages: [
-        GetPage(
-          name: '/',
-          page: () => const MainNavigationPage(),
-        ),
-        GetPage(name: '/cart', page: () => CartPage()),
-        GetPage(name: '/category/:category', page: () => CategoryPage()),
-        GetPage(name: '/signup', page: () => const SignUpPage()),
+        GetPage(name: '/', page: () => const MainNavigationPage()),
         GetPage(name: '/login', page: () => const LoginPage()),
-        GetPage(name: '/recommendations', page: () => const RecommendationsPage()),
+        GetPage(name: '/signup', page: () => const SignUpPage()),
+        GetPage(name: '/home', page: () => const HomePage()),
+        GetPage(
+            name: '/product-detail', 
+            page: () => ProductDetailPage(product: Get.arguments)),
+        GetPage(name: '/cart', page: () => CartPage()),
+        GetPage(name: '/profile', page: () => ProfilePage()),
+        GetPage(name: '/orders', page: () => OrdersPage()),
+        GetPage(
+            name: '/order-detail', 
+            page: () => OrderDetailPage(order: Get.arguments)),
+        GetPage(name: '/favorites', page: () => FavoritesPage()),
+        GetPage(
+            name: '/recommendations',
+            page: () => const RecommendationsPage()),
+        GetPage(name: '/notifications', page: () => const NotificationsPage()),
       ],
     );
   }

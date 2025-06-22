@@ -13,3 +13,4 @@ export 'order_model.dart';
 export 'order_product_model.dart';
 export './order_status.dart';
 export 'recommendation_model.dart';
+export 'notification_model.dart';

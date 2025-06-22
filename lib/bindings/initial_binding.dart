@@ -8,9 +8,14 @@ import '../models/models.dart';
 import '../repository/repository.dart';
 import '../services/services.dart';
 
+import '../controllers/notification_controller.dart';
+
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
+    // NotificationController - deve ser registrado primeiro
+    Get.put(NotificationController());
+
     // Services
     final productService = ProductService();
     final categoryService = CategoryService();

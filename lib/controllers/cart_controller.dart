@@ -6,6 +6,15 @@ import 'package:get/get.dart';
 import './../controllers/controllers.dart';
 import './../repository/repository.dart';
 import './../models/models.dart';
+import 'package:loja_virtual_unicesumar/controllers/auth_controller.dart';
+import 'package:loja_virtual_unicesumar/controllers/order_controller.dart';
+import 'package:loja_virtual_unicesumar/models/cart_product_model.dart';
+import 'package:loja_virtual_unicesumar/models/order_model.dart';
+import 'package:loja_virtual_unicesumar/models/order_status.dart';
+import 'package:loja_virtual_unicesumar/repository/cart_repository.dart';
+
+import '../models/notification_model.dart';
+import 'notification_controller.dart';
 
 class CartController extends GetxController {
   final CartRepository cartRepository;
@@ -148,45 +157,53 @@ class CartController extends GetxController {
     }
   }
 
-  Future<void> finalizarPedido() async {
-    try {
-      final userId = Get.find<UserController>().user.value?.id;
-      if (userId == null) throw Exception('Usuário não logado');
-      if (cartProducts.isEmpty) throw Exception('Carrinho vazio');
-
-      final order = OrderModel(
-        id: DateTime.now().millisecondsSinceEpoch,
-        userId: userId,
-        date: DateTime.now(),
-        status: OrderStatus.concluido,
-        products: cartProducts
-            .map((p) => OrderProductModel(
-                  productId: p.productId,
-                  quantity: p.quantity,
-                  price: p.price,
-                ))
-            .toList(),
-      );
-
-      await Get.find<OrderController>().saveOrder(order);
-      await deleteCart();
-
-      Get.snackbar('Pedido concluído', 'Seu pedido foi finalizado com sucesso!');
-      Get.offAllNamed('/order-confirmation');
-    } catch (e) {
-      Get.snackbar('Erro ao finalizar pedido', e.toString());
+  void finalizarPedido() async {
+    final userController = Get.find<UserController>();
+    if (userController.user.value == null) {
+      Get.snackbar("Erro", "Você precisa estar logado para finalizar o pedido.");
+      return;
     }
-  }
 
-  Future<void> deleteCart() async {
-    if (cart.value == null) return;
-    await cartRepository.deleteCart(cart.value!.id);
-    cart.value = null;
+    final newOrder = OrderModel(
+      id: DateTime.now().millisecondsSinceEpoch,
+      userId: userController.user.value!.id,
+      date: DateTime.now(),
+      status: OrderStatus.emAndamento,
+      products: cartProducts
+          .map((p) => OrderProductModel(
+                productId: p.productId,
+                quantity: p.quantity,
+                price: p.price,
+              ))
+          .toList(),
+    );
+
+    await Get.find<OrderController>().saveOrder(newOrder);
+
+    final notificationController = Get.find<NotificationController>();
+    notificationController.addNotification(
+      title: 'Pedido Recebido!',
+      body: 'Seu pedido #${newOrder.id.toString().substring(0, 5)} foi criado com sucesso.',
+      type: NotificationType.pedido,
+    );
+    Future.delayed(const Duration(seconds: 5), () {
+      notificationController.addNotification(
+        title: 'Pedido Concluído!',
+        body: 'Seu pedido #${newOrder.id.toString().substring(0, 5)} foi entregue.',
+        type: NotificationType.pedido,
+      );
+    });
+    
+    await cartRepository.deleteCartProducts(cart.value?.id ?? 0);
     cartProducts.clear();
-    await updateBadge();
+    update();
   }
 
   int get totalQuantity => cartProducts.fold(0, (sum, item) => sum + item.quantity);
 
   double get total => cartProducts.fold(0.0, (soma, item) => soma + item.price * item.quantity);
+
+  void _onCartUpdated() {
+    updateBadge();
+  }
 }
