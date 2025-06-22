@@ -64,7 +64,7 @@ class OrderDetailPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Lista de produtos
-            Text(
+            const Text(
               'Itens do pedido',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -105,7 +105,7 @@ class OrderDetailPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Total do pedido:',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),

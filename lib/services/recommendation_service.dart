@@ -16,6 +16,7 @@ class RecommendationService {
   }
 
   Future<List<ProductModel>> getRecommendedProducts(String userId) async {
+    // ignore: unused_local_variable
     final recommendations = await getPersonalizedRecommendations(userId);
     // Aqui você implementaria a lógica para buscar os produtos baseado nas recomendações
     return [];

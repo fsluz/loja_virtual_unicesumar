@@ -81,7 +81,7 @@ class RecommendationLoadingWidget extends StatelessWidget {
                                 child: Container(
                                   height: 20,
                                   width: 20,
-                                  decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                  decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                                 ),
                               ),
                             ],

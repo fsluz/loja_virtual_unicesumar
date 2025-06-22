@@ -2,24 +2,27 @@ import './../database/app_database.dart';
 import './../models/models.dart';
 
 class CartProductsLocalRepository {
-  Future<void> saveCartProduct(int cartId, CartProductModel cartProduct) async {
+  /// Adiciona um produto ao carrinho.
+  /// Se o produto já existir, incrementa a quantidade.
+  Future<void> addProduct(int cartId, CartProductModel cartProduct) async {
     final db = await AppDatabase().database;
 
-    // Primeiro tenta fazer UPDATE → se o item já existe no carrinho, atualiza
-    final count = await db.update(
+    final existingProducts = await db.query(
       'cart_products',
-      {
-        'quantity': cartProduct.quantity,
-        'title': cartProduct.title,
-        'price': cartProduct.price,
-        'imageUrl': cartProduct.imageUrl,
-      },
       where: 'cartId = ? AND productId = ?',
       whereArgs: [cartId, cartProduct.productId],
     );
 
-    // Se não atualizou nada (ou seja, o item não existia), faz INSERT
-    if (count == 0) {
+    if (existingProducts.isNotEmpty) {
+      final existingQuantity = existingProducts.first['quantity'] as int;
+      final newQuantity = existingQuantity + cartProduct.quantity;
+      await db.update(
+        'cart_products',
+        {'quantity': newQuantity},
+        where: 'cartId = ? AND productId = ?',
+        whereArgs: [cartId, cartProduct.productId],
+      );
+    } else {
       await db.insert(
         'cart_products',
         {
@@ -32,6 +35,26 @@ class CartProductsLocalRepository {
         },
       );
     }
+  }
+
+  /// Atualiza a quantidade de um produto específico para um valor exato.
+  Future<void> updateQuantity(int cartId, int productId, int newQuantity) async {
+    final db = await AppDatabase().database;
+    await db.update(
+      'cart_products',
+      {'quantity': newQuantity},
+      where: 'cartId = ? AND productId = ?',
+      whereArgs: [cartId, productId],
+    );
+  }
+
+  Future<void> removeProduct(int cartId, int productId) async {
+    final db = await AppDatabase().database;
+    await db.delete(
+      'cart_products',
+      where: 'cartId = ? AND productId = ?',
+      whereArgs: [cartId, productId],
+    );
   }
 
   Future<List<CartProductModel>> getCartProducts(int cartId) async {

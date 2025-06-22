@@ -112,7 +112,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text(
+                const Text(
                   'Informações da Conta',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),

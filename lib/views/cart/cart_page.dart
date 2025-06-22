@@ -61,7 +61,7 @@ class CartPage extends StatelessWidget {
                     color: theme.primaryColor.withOpacity(0.7),
                   ),
                   const SizedBox(height: 24),
-                  Text(
+                  const Text(
                     'Seu carrinho está vazio',
                     style: TextStyle(
                       fontSize: 20,

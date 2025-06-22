@@ -40,8 +40,8 @@ class RecommendationCard extends StatelessWidget {
               Container(
                 height: 120,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
                     top: Radius.circular(12),
                   ),
                 ),

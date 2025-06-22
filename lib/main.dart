@@ -63,17 +63,17 @@ class MyApp extends StatelessWidget {
       useMaterial3: true,
       primaryColor: Colors.blue,
       scaffoldBackgroundColor: Colors.grey[50],
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         elevation: 4,
         centerTitle: true,
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.blue,

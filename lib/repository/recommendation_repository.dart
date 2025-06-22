@@ -1,5 +1,4 @@
 import '../models/recommendation_model.dart';
-import '../models/product_model.dart';
 import '../services/product_service.dart';
 
 abstract class RecommendationRepository {

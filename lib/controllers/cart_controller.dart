@@ -38,26 +38,18 @@ class CartController extends GetxController {
   }
 
   Future<void> limparCarrinho() async {
-    cartProducts.clear();
+    if (cart.value == null) return;
+    await cartRepository.deleteCartProducts(cart.value!.id);
+    final products = await cartRepository.getCartProducts(cart.value!.id);
+    cartProducts.assignAll(products);
     await updateBadge();
   }
 
   Future<void> atualizarquantity(int productId, int novaQuantidade) async {
-    final productList = Get.find<ProductController>().productList;
-    final produto = productList.where((item) => item.id == productId).firstOrNull;
-
-    if (produto == null || cart.value == null) return;
+    if (cart.value == null) return;
 
     if (novaQuantidade > 0) {
-      CartProductModel cartProduct = CartProductModel(
-        productId: productId,
-        quantity: novaQuantidade,
-        title: produto.title,
-        price: produto.price,
-        imageUrl: produto.image,
-      );
-
-      await cartRepository.saveCartProduct(cart.value!.id, cartProduct);
+      await cartRepository.updateProductQuantity(cart.value!.id, productId, novaQuantidade);
     } else {
       await cartRepository.removeCartProduct(cart.value!.id, productId);
     }
@@ -65,10 +57,6 @@ class CartController extends GetxController {
     final products = await cartRepository.getCartProducts(cart.value!.id);
     cartProducts.assignAll(products);
     await updateBadge();
-  }
-
-  void removerItem(int productId) {
-    cartProducts.removeWhere((item) => item.productId == productId);
   }
 
   Future<void> loadCartForUser(int userId) async {
@@ -92,6 +80,7 @@ class CartController extends GetxController {
       } else {
         cartProducts.clear();
       }
+      await updateBadge();
     } catch (e) {
       if (kDebugMode) {
         print('Erro ao buscar carrinho: $e');
@@ -105,17 +94,7 @@ class CartController extends GetxController {
       final userId = Get.find<UserController>().user.value?.id;
 
       if (userId == null) {
-        Get.snackbar(
-          'Erro',
-          'Para adicionar ao carrinho, você precisa estar logado.',
-          colorText: Colors.white,
-          backgroundColor: Colors.red,
-          snackPosition: SnackPosition.TOP,
-          margin: const EdgeInsets.all(16),
-          borderRadius: 12,
-          icon: const Icon(Icons.error_outline, color: Colors.white),
-          duration: const Duration(seconds: 5),
-        );
+        Get.snackbar('Erro', 'Para adicionar ao carrinho, você precisa estar logado.');
         return;
       }
 
@@ -124,14 +103,14 @@ class CartController extends GetxController {
         cart.value = CartModel(id: newCartId, userId: userId, date: DateTime.now(), products: []);
       }
 
-      CartProductModel cartProduct = CartProductModel(
+      final cartProduct = CartProductModel(
         productId: produto.id,
         quantity: quantity,
         title: produto.title,
         price: produto.price,
         imageUrl: produto.image,
       );
-      await cartRepository.saveCartProduct(cart.value!.id, cartProduct);
+      await cartRepository.addProductToCart(cart.value!.id, cartProduct);
 
       final products = await cartRepository.getCartProducts(cart.value!.id);
       cartProducts.assignAll(products);
@@ -147,9 +126,6 @@ class CartController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green,
         colorText: Colors.white,
-        borderRadius: 10,
-        margin: const EdgeInsets.all(10),
-        icon: const Icon(Icons.check_circle_outline, color: Colors.white),
       );
     } catch (e) {
       erro.value = e.toString();
@@ -167,138 +143,50 @@ class CartController extends GetxController {
       final products = await cartRepository.getCartProducts(cart.value!.id);
       cartProducts.assignAll(products);
       await updateBadge();
-
-      Get.snackbar(
-        'Produto removido',
-        'Produto removido do carrinho.',
-        colorText: Colors.white,
-        backgroundColor: Colors.orange,
-        snackPosition: SnackPosition.TOP,
-        margin: const EdgeInsets.all(16),
-        borderRadius: 12,
-        icon: const Icon(Icons.delete_outline, color: Colors.white),
-        duration: const Duration(seconds: 2),
-      );
     } catch (e) {
       erro.value = e.toString();
-      Get.snackbar(
-        'Erro',
-        'Falha ao remover produto: $e',
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-        snackPosition: SnackPosition.TOP,
-        margin: const EdgeInsets.all(16),
-        borderRadius: 12,
-        icon: const Icon(Icons.error_outline, color: Colors.white),
-        duration: const Duration(seconds: 5),
-      );
     }
   }
 
   Future<void> finalizarPedido() async {
     try {
       final userId = Get.find<UserController>().user.value?.id;
+      if (userId == null) throw Exception('Usuário não logado');
+      if (cartProducts.isEmpty) throw Exception('Carrinho vazio');
 
-      if (userId == null) {
-        throw Exception('Usuário não logado');
-      }
-
-      if (cartProducts.isEmpty) {
-        throw Exception('Carrinho vazio');
-      }
-
-      // Cria o OrderModel
       final order = OrderModel(
-        id: DateTime.now().millisecondsSinceEpoch, // ou use seu OrderService para gerar ID
+        id: DateTime.now().millisecondsSinceEpoch,
         userId: userId,
         date: DateTime.now(),
         status: OrderStatus.concluido,
-
-        products: cartProducts.map((p) {
-          return OrderProductModel(
-            productId: p.productId,
-            quantity: p.quantity,
-            price: p.price,
-          );
-        }).toList(),
+        products: cartProducts
+            .map((p) => OrderProductModel(
+                  productId: p.productId,
+                  quantity: p.quantity,
+                  price: p.price,
+                ))
+            .toList(),
       );
 
-      // Salva o pedido
       await Get.find<OrderController>().saveOrder(order);
-
-      // Limpa o carrinho
       await deleteCart();
 
-      // Opcional: mostrar snackbar
-      Get.snackbar(
-        'Pedido concluído',
-        'Seu pedido foi finalizado com sucesso!',
-        colorText: Colors.white,
-        backgroundColor: Colors.green,
-        snackPosition: SnackPosition.TOP,
-        margin: const EdgeInsets.all(16),
-        borderRadius: 12,
-        icon: const Icon(Icons.check_circle_outline, color: Colors.white),
-        duration: const Duration(seconds: 3),
-      );
-
-      // Navegar para tela de confirmação
+      Get.snackbar('Pedido concluído', 'Seu pedido foi finalizado com sucesso!');
       Get.offAllNamed('/order-confirmation');
     } catch (e) {
-      Get.snackbar(
-        'Erro ao finalizar pedido',
-        '$e',
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-        snackPosition: SnackPosition.TOP,
-        margin: const EdgeInsets.all(16),
-        borderRadius: 12,
-        icon: const Icon(Icons.error_outline, color: Colors.white),
-        duration: const Duration(seconds: 3),
-      );
+      Get.snackbar('Erro ao finalizar pedido', e.toString());
     }
-  }
-
-  Future<void> updateProductQuantity(
-      int productId, String title, double price, int newQuantity) async {
-    final productList = Get.find<ProductController>().productList;
-    final produto = productList.where((item) => item.id == productId).firstOrNull;
-
-    if (produto == null) {
-      return;
-    }
-
-    if (cart.value == null) return;
-
-    CartProductModel cartProduct = CartProductModel(
-      productId: productId,
-      quantity: newQuantity,
-      title: produto.title,
-      price: price,
-      imageUrl: produto.image,
-    );
-
-    await cartRepository.saveCartProduct(cart.value!.id, cartProduct);
-
-    final products = await cartRepository.getCartProducts(cart.value!.id);
-    cartProducts.assignAll(products);
   }
 
   Future<void> deleteCart() async {
     if (cart.value == null) return;
-
     await cartRepository.deleteCart(cart.value!.id);
-
     cart.value = null;
     cartProducts.clear();
+    await updateBadge();
   }
 
-  int get totalQuantity {
-    if (cartProducts.isEmpty) {
-      return 0;
-    }
-    return cartProducts.fold(0, (sum, item) => sum + item.quantity);
-  }
+  int get totalQuantity => cartProducts.fold(0, (sum, item) => sum + item.quantity);
 
   double get total => cartProducts.fold(0.0, (soma, item) => soma + item.price * item.quantity);
 }

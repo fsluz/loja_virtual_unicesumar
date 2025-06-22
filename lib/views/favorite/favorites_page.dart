@@ -35,7 +35,7 @@ class FavoritesPage extends StatelessWidget {
                     color: theme.primaryColor.withOpacity(0.7),
                   ),
                   const SizedBox(height: 24),
-                  Text(
+                  const Text(
                     'Você não está logado',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -96,7 +96,7 @@ class FavoritesPage extends StatelessWidget {
                     color: theme.primaryColor.withOpacity(0.7),
                   ),
                   const SizedBox(height: 24),
-                  Text(
+                  const Text(
                     'Nenhum favorito encontrado',
                     textAlign: TextAlign.center,
                     style: TextStyle(
