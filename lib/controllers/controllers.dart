@@ -9,3 +9,4 @@ export 'order_controller.dart';
 export 'product_controller.dart';
 export 'theme_controller.dart';
 export 'user_controller.dart';
+export 'recommendation_controller.dart';

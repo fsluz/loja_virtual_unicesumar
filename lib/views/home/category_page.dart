@@ -8,6 +8,7 @@ class CategoryPage extends StatelessWidget {
   CategoryPage({super.key});
 
   final ProductController categoryController = Get.find<ProductController>();
+  final CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +32,24 @@ class CategoryPage extends StatelessWidget {
 
         return GridView.builder(
           padding: const EdgeInsets.all(12),
+          itemCount: categoryController.productList.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
+            crossAxisSpacing: 6,
+            mainAxisSpacing: 6,
             childAspectRatio: 0.75,
           ),
-          itemCount: categoryController.productList.length,
           itemBuilder: (context, index) {
-            final produto = categoryController.productList[index];
+            final product = categoryController.productList[index];
+            final imageKey = GlobalKey();
             return ProductCard(
-              cartAnimationMethod: (p0) {},
-              product: produto,
+              key: imageKey,
+              product: product,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductDetailPage(product: produto),
-                  ),
-                );
+                Get.to(() => ProductDetailPage(product: product));
+              },
+              onAddToCart: () {
+                cartController.addProductToCart(product, 1, gkImage: imageKey);
               },
             );
           },

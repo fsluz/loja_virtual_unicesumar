@@ -24,81 +24,169 @@ Nesso projeto estamos usando a FAKESTOREAPI : https://fakestoreapi.com/products
 
 <hr/>
 
-🛍️ Loja Virtual Unicesumar
-Aplicativo mobile multiplataforma desenvolvido com Flutter e GetX, simulando uma loja virtual completa com autenticação, listagem de produtos, sistema de favoritos, carrinho de compras e pedidos. Os dados são consumidos da API pública FakeStoreAPI.
+# 🛍️ Loja Virtual Unicesumar
 
-📱 Interface do Aplicativo
-🏠 Home - Produtos em Destaque
-Exibe produtos com destaque visual, categorias navegáveis e botão rápido para adicionar ao carrinho ou aos favoritos.
+Uma aplicação Flutter completa de e-commerce com funcionalidades modernas e interface intuitiva.
 
+## ✨ Funcionalidades Principais
 
-🛒 Carrinho de Compras
-Usuário pode visualizar os produtos adicionados, ajustar quantidades, limpar o carrinho ou finalizar o pedido.
+### 🏠 **Home**
+- Banner carrossel com promoções
+- Categorias de produtos
+- Produtos em destaque
+- **NOVO**: Sistema de recomendações personalizadas
+- **NOVO**: Busca inteligente com sugestões
 
+### 🛒 **Carrinho**
+- Adição/remoção de produtos
+- Controle de quantidade
+- Cálculo automático de valores
+- Animação de adição ao carrinho
 
-🧾 Tela de Pedidos
-Lista os pedidos realizados, com data, número de itens e valor total.
+### ❤️ **Favoritos**
+- Lista de produtos favoritos
+- Adição/remoção de favoritos
+- Persistência local
 
+### 📦 **Pedidos**
+- Histórico de pedidos
+- Status de entrega
+- Detalhes do pedido
 
-💜 Tela de Favoritos
-Exibe os produtos marcados como favoritos, com opção de exclusão.
+### 👤 **Perfil do Usuário**
+- Cadastro e login
+- Edição de perfil
+- Gerenciamento de dados pessoais
 
+### 🎨 **Tema**
+- Modo claro/escuro
+- Personalização de cores
+- Persistência das preferências
 
-👤 Tela de Perfil
-Mostra as informações da conta do usuário com opções para editar dados ou sair.
+## 🚀 **Novas Funcionalidades Implementadas**
 
+### 🤖 **Sistema de Recomendações Inteligente**
+- Recomendações baseadas no histórico de compras
+- Análise de tendências
+- Produtos similares
+- Score de relevância
+- Interface dedicada para recomendações
 
-✏️ Editar Perfil
-Permite ao usuário alterar dados pessoais e de conta, como nome, email e senha.
+### 🔍 **Busca Inteligente**
+- Sugestões automáticas
+- Filtro em tempo real
+- Histórico de buscas
+- Interface moderna e responsiva
 
+### 📱 **Melhorias na Interface**
+- Cards de recomendação com gradientes
+- Indicadores visuais de relevância
+- Navegação fluida entre seções
+- Feedback visual aprimorado
 
-🔍 Detalhes do Produto
-Apresenta imagem, descrição detalhada, preço e botão para adicionar ao carrinho.
+## 🛠️ **Tecnologias Utilizadas**
 
+- **Flutter** - Framework de desenvolvimento
+- **GetX** - Gerenciamento de estado e navegação
+- **GetStorage** - Persistência local
+- **HTTP** - Comunicação com APIs
+- **SQFlite** - Banco de dados local
+- **Cached Network Image** - Cache de imagens
+- **Shimmer** - Efeitos de loading
+- **Intl** - Internacionalização
 
-🔧 Tecnologias Utilizadas
-Flutter 3.x
+## 📁 **Estrutura do Projeto**
 
-GetX (estado, navegação e injeção de dependência)
-
-REST API (FakeStoreAPI)
-
-Programação reativa com Rx
-
-Componentização de widgets
-
-📁 Estrutura do Projeto
-
-
-```txt
+```
 lib/
-├── common/        # Helpers, temas, constantes
-├── controllers/   # GetX Controllers
-├── database/      # Integrações locais (ex: SQLite, se necessário)
-├── models/        # Modelos baseados na API
-├── repository/    # Repositórios remotos e locais
-├── views/         # Telas do app
-└── widgets/       # Componentes reutilizáveis
+├── bindings/          # Injeção de dependências
+├── controllers/       # Controladores GetX
+├── models/           # Modelos de dados
+├── repository/       # Camada de acesso a dados
+├── services/         # Serviços de negócio
+├── views/            # Telas da aplicação
+├── widgets/          # Widgets reutilizáveis
+└── main.dart         # Ponto de entrada
 ```
 
+## 🎯 **Arquitetura**
 
+O projeto segue os princípios da **Clean Architecture** com:
 
-🎯 Funcionalidades
-Login simulado e gerenciamento de usuário
+- **Separação de responsabilidades**
+- **Injeção de dependências**
+- **Padrão Repository**
+- **Gerenciamento de estado reativo**
 
-Listagem e filtro por categorias
+## 🚀 **Como Executar**
 
-Favoritar e desfavoritar produtos
+1. **Clone o repositório**
+   ```bash
+   git clone [url-do-repositorio]
+   cd loja_virtual_unicesumar
+   ```
 
-Carrinho com quantidade ajustável
+2. **Instale as dependências**
+   ```bash
+   flutter pub get
+   ```
 
-Simulação de pedidos com data e valor total
+3. **Execute o projeto**
+   ```bash
+   flutter run
+   ```
 
-Edição de perfil com dados pessoais e endereço
+## 📱 **Funcionalidades Futuras Planejadas**
 
-▶️ Playlist das Aulas
-Assista ao passo a passo do desenvolvimento na playlist:
-🔗 YouTube - Loja Virtual https://www.youtube.com/playlist?list=PLMibyndz00bfPuBB5Q5qIsgegevRzBf07
+### 🔔 **Sistema de Notificações**
+- Notificações push
+- Alertas de promoções
+- Status de pedidos em tempo real
+
+### 💬 **Chat de Suporte**
+- Chat em tempo real
+- FAQ interativo
+- Suporte por chatbot
+
+### 🎫 **Sistema de Cupons**
+- Cupons de desconto
+- Promoções por categoria
+- Programa de fidelidade
+
+### 📍 **Localização e Entrega**
+- Rastreamento em tempo real
+- Mapa de entrega
+- Pontos de retirada
+
+### ⭐ **Sistema de Avaliações**
+- Avaliação por estrelas
+- Comentários detalhados
+- Fotos dos clientes
+
+### 🔄 **Comparador de Produtos**
+- Comparação lado a lado
+- Tabela de especificações
+- Recomendações baseadas na comparação
+
+## 🤝 **Contribuição**
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 **Licença**
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 👨‍💻 **Desenvolvido por**
+
+[Seu Nome] - Projeto para Unicesumar
+
+---
+
+⭐ **Se este projeto te ajudou, considere dar uma estrela!**
 
 🧑‍💻 Desenvolvedor/Professor
 Rivaldo Roberto da Silva

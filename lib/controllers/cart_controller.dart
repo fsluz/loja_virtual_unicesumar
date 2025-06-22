@@ -24,43 +24,22 @@ class CartController extends GetxController {
     cartKey = key;
   }
 
-  Future<void> updateCartBadge() async {
-    var cartQuantityItems = totalQuantity;
-    if (cartKey?.currentState != null) {
-      await cartKey!.currentState!.runCartAnimation((++cartQuantityItems).toString());
-    }
-  }
+  // Guarda a função de animação da imagem
+  Function(GlobalKey)? _runAddToCartAnimation;
 
-  Future<void> downgradeCartBadge() async {
-    var cartQuantityItems = totalQuantity;
-    if (cartKey?.currentState != null) {
-      await cartKey!.currentState!.runCartAnimation((--cartQuantityItems).toString());
-    }
-  }
-
-  Future<void> clearCartBadge() async {
-    if (cartKey?.currentState != null) {
-      await cartKey!.currentState!.runClearCartAnimation();
-    }
-  }
-
-  Future<void> itemSelectedCartAnimations(GlobalKey<State<StatefulWidget>> gkImage) async {
-    if (_runAddToCartAnimation != null) {
-      await _runAddToCartAnimation!(gkImage);
-      // Atualiza o badge após a animação da imagem
-      await cartKey?.currentState?.runCartAnimation(totalQuantity.toString());
-    }
-  }
-
-// Guarda a função de animação da imagem
-  Future<void> Function(GlobalKey<State<StatefulWidget>>)? _runAddToCartAnimation;
-
-  void setRunAddToCartAnimation(Future<void> Function(GlobalKey<State<StatefulWidget>>) animation) {
+  void setRunAddToCartAnimation(Function(GlobalKey) animation) {
     _runAddToCartAnimation = animation;
   }
 
-  void limparCarrinho() {
+  Future<void> updateBadge() async {
+    if (cartKey?.currentState != null) {
+      cartKey!.currentState!.runCartAnimation(totalQuantity.toString());
+    }
+  }
+
+  Future<void> limparCarrinho() async {
     cartProducts.clear();
+    await updateBadge();
   }
 
   Future<void> atualizarquantity(int productId, int novaQuantidade) async {
@@ -70,7 +49,6 @@ class CartController extends GetxController {
     if (produto == null || cart.value == null) return;
 
     if (novaQuantidade > 0) {
-      // Atualiza no banco
       CartProductModel cartProduct = CartProductModel(
         productId: productId,
         quantity: novaQuantidade,
@@ -81,13 +59,12 @@ class CartController extends GetxController {
 
       await cartRepository.saveCartProduct(cart.value!.id, cartProduct);
     } else {
-      // Remove do banco
       await cartRepository.removeCartProduct(cart.value!.id, productId);
     }
 
-    // Atualiza lista local
     final products = await cartRepository.getCartProducts(cart.value!.id);
     cartProducts.assignAll(products);
+    await updateBadge();
   }
 
   void removerItem(int productId) {
@@ -122,8 +99,9 @@ class CartController extends GetxController {
     }
   }
 
-  Future<void> addProductToCart(ProductModel produto, int quantity) async {
+  Future<void> addProductToCart(ProductModel produto, int quantity, {GlobalKey? gkImage}) async {
     try {
+      carregandoFinalizar.value = true;
       final userId = Get.find<UserController>().user.value?.id;
 
       if (userId == null) {
@@ -156,8 +134,23 @@ class CartController extends GetxController {
       await cartRepository.saveCartProduct(cart.value!.id, cartProduct);
 
       final products = await cartRepository.getCartProducts(cart.value!.id);
-      cartProducts.clear();
       cartProducts.assignAll(products);
+
+      if (gkImage != null && _runAddToCartAnimation != null) {
+        await _runAddToCartAnimation!(gkImage);
+      }
+      await updateBadge();
+
+      Get.snackbar(
+        'Produto Adicionado!',
+        '"${produto.title}" foi adicionado ao seu carrinho.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        borderRadius: 10,
+        margin: const EdgeInsets.all(10),
+        icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+      );
     } catch (e) {
       erro.value = e.toString();
     } finally {
@@ -169,14 +162,12 @@ class CartController extends GetxController {
     try {
       if (cart.value == null) return;
 
-      // Remove do banco
       await cartRepository.removeCartProduct(cart.value!.id, productId);
 
-      // Atualiza lista local
       final products = await cartRepository.getCartProducts(cart.value!.id);
       cartProducts.assignAll(products);
+      await updateBadge();
 
-      // Opcional: feedback para o usuário
       Get.snackbar(
         'Produto removido',
         'Produto removido do carrinho.',
@@ -199,7 +190,7 @@ class CartController extends GetxController {
         margin: const EdgeInsets.all(16),
         borderRadius: 12,
         icon: const Icon(Icons.error_outline, color: Colors.white),
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -303,6 +294,9 @@ class CartController extends GetxController {
   }
 
   int get totalQuantity {
+    if (cartProducts.isEmpty) {
+      return 0;
+    }
     return cartProducts.fold(0, (sum, item) => sum + item.quantity);
   }
 

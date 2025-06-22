@@ -20,3 +20,4 @@ export './banner_repository.dart';
 export './order_local_repository.dart';
 export './order_remote_repository.dart';
 export './order_repository.dart';
+export 'recommendation_repository.dart';

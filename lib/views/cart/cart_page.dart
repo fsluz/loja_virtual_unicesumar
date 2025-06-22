@@ -173,18 +173,32 @@ class CartPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton.icon(
-                    onPressed: cartController.limparCarrinho,
-                    icon: const Icon(Icons.delete_outline, color: Colors.white),
-                    label: const Text(
-                      'Limpar Carrinho',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.primaryColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
+                  TextButton.icon(
+                    icon: const Icon(Icons.delete_sweep_outlined),
+                    label: const Text('Limpar Carrinho'),
+                    onPressed: () {
+                      if (cartController.cartProducts.isEmpty) return;
+                      Get.dialog(
+                        AlertDialog(
+                          title: const Text('Confirmar exclusão'),
+                          content: const Text(
+                              'Tem certeza que deseja remover todos os itens do carrinho?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Get.back(),
+                              child: const Text('Cancelar'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                cartController.limparCarrinho();
+                                Get.back();
+                              },
+                              child: const Text('Confirmar'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                   Text(
                     'Total: ${currencyFormat.format(cartController.total)}',
@@ -231,7 +245,6 @@ class CartPage extends StatelessWidget {
 
                           cartController.carregandoFinalizar.value = true;
                           await cartController.finalizarPedido();
-                          cartController.clearCartBadge();
                           cartController.carregandoFinalizar.value = false;
                         },
                       ))),

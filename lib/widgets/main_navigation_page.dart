@@ -22,6 +22,14 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   // Função que executa animação da imagem
   late Function(GlobalKey widgetKey) runAddToCartAnimation;
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<CartController>().updateBadge();
+    });
+  }
+
   final List<Widget> _pages = [
     const HomePage(),
     OrdersPage(),
@@ -50,9 +58,10 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
       ),
       jumpAnimation: const JumpAnimationOptions(),
       createAddToCartAnimation: (runAnimation) {
-        runAddToCartAnimation = runAnimation;
         cartController.setRunAddToCartAnimation(
-          runAnimation,
+          (key) {
+            runAnimation(key);
+          },
         );
         cartController.setCartKey(cartKey);
       },
@@ -73,9 +82,9 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               child: AddToCartIcon(
                 key: cartKey,
                 icon: const Icon(Icons.shopping_cart),
-                badgeOptions: const BadgeOptions(
+                badgeOptions: BadgeOptions(
                   active: true,
-                  backgroundColor: Colors.purple,
+                  backgroundColor: Theme.of(context).primaryColor,
                 ),
               ),
             ),

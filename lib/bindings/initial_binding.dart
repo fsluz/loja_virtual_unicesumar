@@ -54,6 +54,12 @@ class InitialBinding extends Bindings {
     Get.put(favoritosRepository);
     Get.put(FavoritosController(favoritosRepository: favoritosRepository)); // ✅ ADD AQUI
 
+    // Sistema de Recomendações
+    final recommendationRepository = RecommendationRemoteRepository(productService);
+    final recommendationService = RecommendationService(recommendationRepository);
+    Get.put(recommendationService);
+    Get.put(RecommendationController());
+
     // Controllers globais
     Get.put(MainNavigationController());
     Get.put(ThemeController());

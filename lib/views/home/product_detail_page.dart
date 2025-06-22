@@ -215,21 +215,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   widget.product,
                   quantidade,
                 );
-                for (var i = 1; i < quantidade; i++) {
-                  await cartController.updateCartBadge();
-                }
-
-                Get.snackbar(
-                  'Itens adicionados ao carrinho',
-                  '${quantidade}x ${widget.product.title} foram adicionados ao carrinho.',
-                  colorText: Colors.white,
-                  backgroundColor: Colors.green[900],
-                  snackPosition: SnackPosition.TOP,
-                  margin: const EdgeInsets.all(16),
-                  borderRadius: 12,
-                  icon: const Icon(Icons.lock_outline, color: Colors.white),
-                  duration: const Duration(seconds: 3),
-                );
               },
             ),
           ),

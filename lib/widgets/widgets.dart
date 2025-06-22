@@ -7,3 +7,6 @@ export './chip_info.dart';
 export './order_status_badge.dart';
 export 'text_field_widget.dart';
 export 'theme_selector.dart';
+export 'recommendation_card.dart';
+export 'smart_search_widget.dart';
+export 'recommendation_loading_widget.dart';
