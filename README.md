@@ -27,7 +27,6 @@ Nesso projeto estamos usando a FAKESTOREAPI : https://fakestoreapi.com/products
   <img src="/assets/screen_009.jpg" width="110px" height="210px">
 </div>
 
-
 <hr/>
 
 # 🛍️ Loja Virtual Unicesumar
@@ -203,3 +202,7 @@ Analista de Sistemas Sênior | Flutter | Java | APIs REST
 
 ⭐ **Se este projeto te ajudou, considere dar uma estrela!**
 
+🧑‍💻 Desenvolvedor/Professor
+Rivaldo Roberto da Silva
+Engenharia de Software - Unicesumar
+Analista de Sistemas Sênior | Flutter | Java | APIs REST
