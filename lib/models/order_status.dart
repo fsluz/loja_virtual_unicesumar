@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';//para usar widgets
+
 enum OrderStatus {
   concluido,
   emAndamento,
@@ -15,6 +17,21 @@ extension OrderStatusExtension on OrderStatus {
         return 'Cancelado';
     }
   }
+//Adição de cor para cada status
+  Color get color {//
+    switch (this) {
+      case OrderStatus.concluido:
+        return Colors.green;
+      case OrderStatus.emAndamento:
+        return Colors.blue;
+      case OrderStatus.cancelado:
+        return Colors.red;
+    }
+  }//
+//Verificação de cancelamento
+  bool get podeCancelar {
+    return this == OrderStatus.emAndamento;
+  }
 
   static OrderStatus fromString(String value) {
     switch (value.toLowerCase()) {
@@ -26,7 +43,7 @@ extension OrderStatusExtension on OrderStatus {
       case 'cancelado':
         return OrderStatus.cancelado;
       default:
-        return OrderStatus.concluido; // padrão
+        return OrderStatus.emAndamento;
     }
   }
 }

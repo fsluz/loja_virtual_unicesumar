@@ -37,9 +37,9 @@ class OrderDetailPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.green[50],
+                color: order.status.color.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.green),
+                border: Border.all(color: order.status.color),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class OrderDetailPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green[800],
+                      color: order.status.color,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -62,6 +62,27 @@ class OrderDetailPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 24),
+
+            // Botão de cancelamento
+            if (order.status.podeCancelar) ...[
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => _showCancelDialog(context),
+                  icon: const Icon(Icons.cancel_outlined),
+                  label: const Text('Cancelar Pedido'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],//
 
             // Lista de produtos
             const Text(
@@ -123,5 +144,55 @@ class OrderDetailPage extends StatelessWidget {
         ),
       ),
     );
+  }
+//Métodos para mostar dialogo
+  void _showCancelDialog(BuildContext context) {//
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Cancelar Pedido'),
+        content: const Text('Tem certeza que deseja cancelar este pedido?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Não'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _cancelOrder();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Sim, Cancelar'),
+          ),
+        ],
+      ),
+    );
+  }
+
+//Método para executar o cancelamento
+  void _cancelOrder() {
+  // Remove o pedido da lista
+    final orderController = Get.find<OrderController>();
+    orderController.deleteOrder(order.id);//
+    
+    // Mostra mensagem de sucesso
+    Get.snackbar(
+      'Pedido Cancelado',
+      'O pedido #${order.id} foi cancelado e removido da lista.',
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      margin: const EdgeInsets.all(16),
+      borderRadius: 12,
+      icon: const Icon(Icons.check_circle, color: Colors.white),
+      duration: const Duration(seconds: 3),
+    );
+    
+    // Volta para a página anterior
+    Get.back();
   }
 }

@@ -8,10 +8,9 @@ class ProductController extends GetxController {
 
   ProductController({required this.productRepository});
 
-  // Lista de produtos observável
-  final RxList<ProductModel> productList = <ProductModel>[].obs;
+  final RxList<ProductModel> allProducts = <ProductModel>[].obs;
+  final RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
 
-  // Produto atual (caso queira exibir um detalhe)
   final Rx<ProductModel?> selectedProduct = Rx<ProductModel?>(null);
 
   var carregando = true.obs;
@@ -23,13 +22,13 @@ class ProductController extends GetxController {
     fetchProducts();
   }
 
-  // Carregar todos os produtos
   Future<void> fetchProducts() async {
     try {
       carregando.value = true;
       erro.value = '';
       final products = await productRepository.fetchProducts();
-      productList.assignAll(products);
+      allProducts.assignAll(products);
+      categoryProducts.assignAll(products);
     } catch (e) {
       erro.value = e.toString();
     } finally {
@@ -37,13 +36,12 @@ class ProductController extends GetxController {
     }
   }
 
-  // Carregar todos os produtos por categoria
   Future<void> fetchProductsByCategory(String category) async {
     try {
       carregando.value = true;
       erro.value = '';
       final products = await productRepository.fetchProductsByCategory(category);
-      productList.assignAll(products);
+      categoryProducts.assignAll(products);
     } catch (e) {
       erro.value = e.toString();
     } finally {
@@ -51,7 +49,6 @@ class ProductController extends GetxController {
     }
   }
 
-  // Carregar um produto pelo id
   Future<void> fetchProductById(int id) async {
     try {
       carregando.value = true;
@@ -67,9 +64,14 @@ class ProductController extends GetxController {
 
   ProductModel? getProdutoById(int id) {
     try {
-      return productList.firstWhereOrNull((produto) => produto.id == id);
+      final produtoCategoria = categoryProducts.firstWhereOrNull((produto) => produto.id == id);
+      if (produtoCategoria != null) return produtoCategoria;
+      
+      return allProducts.firstWhereOrNull((produto) => produto.id == id);
     } catch (_) {
       return null;
     }
   }
+
+  RxList<ProductModel> get productList => categoryProducts;
 }

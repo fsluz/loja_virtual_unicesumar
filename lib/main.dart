@@ -70,6 +70,9 @@ class MyApp extends StatelessWidget {
             name: '/recommendations',
             page: () => const RecommendationsPage()),
         GetPage(name: '/notifications', page: () => const NotificationsPage()),
+        GetPage(
+            name: '/category/:category',
+            page: () => const CategoryPage()),
       ],
     );
   }
