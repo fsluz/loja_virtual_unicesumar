@@ -1,208 +1,160 @@
-# Flutter e API
-
-Esse é um projeto do curso de extensão da UNICESUMAR.
-
-Nesso projeto estamos usando a FAKESTOREAPI : https://fakestoreapi.com/products
-
-## Getting Started
-
-## TELAS PRINCIPAIS DO APP
-<div style="display: flex; gap: 10px;">
-  <img src="/assets/screen_001.jpg" width="110px" height="210px">
-  <img src="/assets/screen_002.jpg" width="110px" height="210px">
-  <img src="/assets/screen_003.jpg" width="110px" height="210px">
-</div>
-
-
-## MEUS PEDIDOS, MEUS FAVORITOS E PERFIL
-<div style="display: flex; gap: 10px;">
-  <img src="/assets/screen_004.jpg" width="110px" height="210px">
-  <img src="/assets/screen_005.jpg" width="110px" height="210px">
-  <img src="/assets/screen_006.jpg" width="110px" height="210px">
-</div>
-
-## CHATBOT DE ATENDIMENTO
-<div style="display: flex; gap: 10px;">
-  <img src="/assets/screen_008.jpg" width="110px" height="210px">
-  <img src="/assets/screen_009.jpg" width="110px" height="210px">
-</div>
-
-<hr/>
-
 # 🛍️ Loja Virtual Unicesumar
 
-Uma aplicação Flutter completa de e-commerce com funcionalidades modernas e interface intuitiva.
+Aplicação Flutter desenvolvida no curso de extensão da Unicesumar, simulando um e-commerce completo com funcionalidades modernas e interface intuitiva.
 
-## ✨ Funcionalidades Principais
+## 🔗 API Utilizada
+**Fake Store API**
+
+## 🚀 Funcionalidades Principais
 
 ### 🏠 **Home**
 - Banner carrossel com promoções
 - Categorias de produtos
 - Produtos em destaque
-- **NOVO**: Sistema de recomendações personalizadas
-- **NOVO**: Busca inteligente com sugestões
+- 🔥 **Sistema de recomendações personalizadas**
+- 🔍 **Busca inteligente com sugestões**
 
 ### 🛒 **Carrinho**
-- Adição/remoção de produtos
+- Adição e remoção de produtos
 - Controle de quantidade
 - Cálculo automático de valores
 - Animação de adição ao carrinho
 
 ### ❤️ **Favoritos**
 - Lista de produtos favoritos
-- Adição/remoção de favoritos
 - Persistência local
 
 ### 📦 **Pedidos**
 - Histórico de pedidos
-- Status de entrega
-- Detalhes do pedido
+- Acompanhamento de status de entrega
 
 ### 👤 **Perfil do Usuário**
 - Cadastro e login
 - Edição de perfil
 - Gerenciamento de dados pessoais
 
+### 💬 **Chatbot de Atendimento**
+- Assistente virtual integrado para suporte
+- Respostas rápidas e automáticas sobre entrega, pedidos, pagamentos e mais
+- Simulação de atendimento humanizado
+
 ### 🎨 **Tema**
-- Modo claro/escuro
+- Modo claro e escuro
 - Personalização de cores
 - Persistência das preferências
 
-## 🚀 **Novas Funcionalidades Implementadas**
+## ✨ Novas Funcionalidades Implementadas
 
 ### 🤖 **Sistema de Recomendações Inteligente**
-- Recomendações baseadas no histórico de compras
-- Análise de tendências
-- Produtos similares
-- Score de relevância
-- Interface dedicada para recomendações
+- Baseado no histórico de compras e produtos similares
 
 ### 🔍 **Busca Inteligente**
-- Sugestões automáticas
-- Filtro em tempo real
-- Histórico de buscas
-- Interface moderna e responsiva
+- Sugestões automáticas e filtro em tempo real
 
-### 📱 **Melhorias na Interface**
-- Cards de recomendação com gradientes
-- Indicadores visuais de relevância
-- Navegação fluida entre seções
+### 💬 **Chatbot de Suporte — ✅ IMPLEMENTADO**
+- Atende perguntas frequentes e auxilia o usuário na navegação pelo app
+
+### 🎨 **Melhorias Visuais**
+- Cards com gradientes
 - Feedback visual aprimorado
+- Navegação fluida
 
-## 🛠️ **Tecnologias Utilizadas**
+## 🛠️ Tecnologias Utilizadas
+- **Flutter** — Framework principal
+- **GetX** — Gerenciamento de estado e navegação
+- **GetStorage** — Persistência local
+- **HTTP** — Consumo de APIs
+- **SQFlite** — Banco de dados local
+- **CachedNetworkImage** — Cache de imagens
+- **Shimmer** — Efeitos de carregamento
+- **Intl** — Internacionalização
 
-- **Flutter** - Framework de desenvolvimento
-- **GetX** - Gerenciamento de estado e navegação
-- **GetStorage** - Persistência local
-- **HTTP** - Comunicação com APIs
-- **SQFlite** - Banco de dados local
-- **Cached Network Image** - Cache de imagens
-- **Shimmer** - Efeitos de loading
-- **Intl** - Internacionalização
-
-## 📁 **Estrutura do Projeto**
-
+## 📁 Estrutura do Projeto
 ```
 lib/
 ├── bindings/          # Injeção de dependências
-├── controllers/       # Controladores GetX
-├── models/           # Modelos de dados
-├── repository/       # Camada de acesso a dados
-├── services/         # Serviços de negócio
-├── views/            # Telas da aplicação
-├── widgets/          # Widgets reutilizáveis
-└── main.dart         # Ponto de entrada
+├── controllers/       # Gerenciamento de estado (GetX)
+├── models/            # Modelos de dados
+├── repository/        # Camada de acesso a dados
+├── services/          # Regras de negócio e APIs
+├── views/             # Telas da aplicação
+├── widgets/           # Componentes reutilizáveis
+└── main.dart          # Ponto de entrada do app
 ```
 
-## 🎯 **Arquitetura**
+## 🏗️ Arquitetura
+- **Clean Architecture**
+- Separação clara de responsabilidades
+- Injeção de dependências
+- Padrão Repository
+- Estado gerenciado de forma reativa com GetX
 
-O projeto segue os princípios da **Clean Architecture** com:
+## 🚀 Como Executar o Projeto
 
-- **Separação de responsabilidades**
-- **Injeção de dependências**
-- **Padrão Repository**
-- **Gerenciamento de estado reativo**
+**Clone o repositório:**
+```bash
+git clone [URL-do-repositório]
+cd loja_virtual_unicesumar
+```
 
-## 🚀 **Como Executar**
+**Instale as dependências:**
+```bash
+flutter pub get
+```
 
-1. **Clone o repositório**
-   ```bash
-   git clone [url-do-repositorio]
-   cd loja_virtual_unicesumar
-   ```
+**Execute o projeto:**
+```bash
+flutter run
+```
 
-2. **Instale as dependências**
-   ```bash
-   flutter pub get
-   ```
-
-3. **Execute o projeto**
-   ```bash
-   flutter run
-   ```
-
-## 📱 **Funcionalidades Futuras Planejadas**
+## 🧠 Funcionalidades Futuras (Planejadas)
 
 ### 🔔 **Sistema de Notificações**
-- Notificações push
-- Alertas de promoções
-- Status de pedidos em tempo real
-
-### 💬 **Chat de Suporte**
-- Chat em tempo real
-- FAQ interativo
-- Suporte por chatbot - **IMPLEMENTADO**
+- Push notifications
+- Alertas de promoções e status dos pedidos
 
 ### 🎫 **Sistema de Cupons**
-- Cupons de desconto
-- Promoções por categoria
-- Programa de fidelidade
+- Descontos exclusivos e programa de fidelidade
 
 ### 📍 **Localização e Entrega**
 - Rastreamento em tempo real
-- Mapa de entrega
-- Pontos de retirada
+- Mapa de entrega e pontos de retirada
 
 ### ⭐ **Sistema de Avaliações**
-- Avaliação por estrelas
-- Comentários detalhados
-- Fotos dos clientes
+- Comentários, avaliações e fotos dos clientes
 
 ### 🔄 **Comparador de Produtos**
-- Comparação lado a lado
-- Tabela de especificações
-- Recomendações baseadas na comparação
+- Comparação lado a lado com especificações técnicas
 
-## 🤝 **Contribuição**
-
+## 🤝 Como Contribuir
 1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
+2. Crie uma branch:
+   ```bash
+   git checkout -b feature/SuaFeature
+   ```
+3. Commit suas alterações:
+   ```bash
+   git commit -m 'Adiciona sua nova feature'
+   ```
+4. Envie para o repositório remoto:
+   ```bash
+   git push origin feature/SuaFeature
+   ```
 5. Abra um Pull Request
 
-## 📄 **Licença**
+## 📜 Licença
+Este projeto está sob a licença MIT. Consulte o arquivo LICENSE para mais informações.
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+## 👨‍💻 Desenvolvedores
+- **Gabriel Ozório**
+- **Felipe Luz**
+- **Jhonathan de Lima**
+- **Vinicius Cerqueira**
 
-## 👨‍💻 **Desenvolvido por**
-
-**Equipe de Desenvolvimento:**
-- Gabriel Ozório
-- Felipe Luz
-- Jhonathan de Lima
-- Vinicius Cerqueira
-
-**Professor/Orientador:**
-Rivaldo Roberto da Silva
-Engenharia de Software - Unicesumar
+**Professor/Orientador:** Rivaldo Roberto da Silva  
+Engenharia de Software — Unicesumar  
 Analista de Sistemas Sênior | Flutter | Java | APIs REST
 
 ---
 
-⭐ **Se este projeto te ajudou, considere dar uma estrela!**
-
-🧑‍💻 Desenvolvedor/Professor
-Rivaldo Roberto da Silva
-Engenharia de Software - Unicesumar
-Analista de Sistemas Sênior | Flutter | Java | APIs REST
+⭐ **Se este projeto te ajudou, deixe uma estrela no repositório!**
