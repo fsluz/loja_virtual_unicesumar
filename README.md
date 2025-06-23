@@ -5,6 +5,30 @@ Aplicação Flutter desenvolvida no curso de extensão da Unicesumar, simulando 
 ## 🔗 API Utilizada
 **Fake Store API**
 
+## 📱 Screenshots do Projeto
+
+### 🏠 **TELAS PRINCIPAIS DO APP**
+<div style="display: flex; gap: 10px;">
+  <img src="/assets/screen_001.jpg" width="110px" height="210px">
+  <img src="/assets/screen_002.jpg" width="110px" height="210px">
+  <img src="/assets/screen_003.jpg" width="110px" height="210px">
+</div>
+
+### 📦 **MEUS PEDIDOS, MEUS FAVORITOS E PERFIL**
+<div style="display: flex; gap: 10px;">
+  <img src="/assets/screen_004.jpg" width="110px" height="210px">
+  <img src="/assets/screen_005.jpg" width="110px" height="210px">
+  <img src="/assets/screen_006.jpg" width="110px" height="210px">
+</div>
+
+### 💬 **CHATBOT DE ATENDIMENTO**
+<div style="display: flex; gap: 10px;">
+  <img src="/assets/screen_008.jpg" width="110px" height="210px">
+  <img src="/assets/screen_009.jpg" width="110px" height="210px">
+</div>
+
+---
+
 ## 🚀 Funcionalidades Principais
 
 ### 🏠 **Home**
